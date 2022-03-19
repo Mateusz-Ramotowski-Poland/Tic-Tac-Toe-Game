@@ -5,33 +5,138 @@ function names: use words get, change, delete, create, add, return
 from begging write clean code, do small code refactoring
 use chrome debugger for finding bugs*/
 //alert("It is connected");  // It works
-const changeBlocksArea = document.getElementsByClassName("row my-2")[0];
-const changeBlocksButtonMakeSmallerArea = document.getElementsByTagName("button")[0];
-const changeBlocksButtonMakeBiggerrArea = document.getElementsByTagName("button")[1];
+const changeBlocksArea = document.getElementsByClassName("change")[0];
+const changeBlocks3x3 = document.getElementsByTagName("button")[0];
+const changeBlocks5x5 = document.getElementsByTagName("button")[1];
+const changeBlocks7x7 = document.getElementsByTagName("button")[2];
 
-
-//let HTMLInsidechangeBlocksArea = changeBlocksArea.innerHTML;
-//console.log(HTMLInsidechangeBlocksArea);
-
-changeBlocksButtonMakeSmallerArea.addEventListener("click", function(){
+changeBlocks3x3.addEventListener("click", function(){
     changeBlocksArea.innerHTML = `
-    <div class="col mx-1">column</div>
-          <div class="col mx-1">Column</div>
-          <div class="col mx-1">Column</div>
-          <div class="col mx-1">Column</div> 
+    <section class="change">
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
     `
 });
-changeBlocksButtonMakeBiggerrArea.addEventListener("click", function(){
+changeBlocks5x5.addEventListener("click", function(){
     changeBlocksArea.innerHTML = `
-    <div class="col mx-1">column</div>
-    <div class="col mx-1">Column</div>
-    <div class="col mx-1">Column</div>
-    <div class="col mx-1">Column</div>
-    <div class="col mx-1">column</div>
-    <div class="col mx-1">Column</div>
-    <div class="col mx-1">column</div>
-    <div class="col mx-1">Column</div>
-    <div class="col mx-1">column</div>
+    <section class="change">
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    `
+})
+changeBlocks7x7.addEventListener("click", function(){
+    changeBlocksArea.innerHTML = `
+    <section class="change">
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div>
+    <div class="row">
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+      <div class="board-game-area"></div>
+    </div> 
+    </div>
     `
 })
 
