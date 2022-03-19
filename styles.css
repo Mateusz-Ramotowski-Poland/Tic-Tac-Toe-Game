@@ -2,21 +2,22 @@
 /* think about system how do you want to create class names: where they are in html code, what they do... */
 body{
     background-color: white;
+    text-align: center;
 }
-.col{
-    background-color: blue;
-    color: white;
-    height: 60px;
+footer{
+    text-align: left;
 }
-h1, footer, p{
+h1{ 
+    border-bottom: solid 2px red;
+}
+h1, footer, p, .col, .col-2, .col-3{
     padding: 0;
 }
-
-.test{
-    background-color: red;
-    width: 100px;
+.col, .col-2{
+    background-color: blue;
+    color: white;
     height: 100px;
-    padding: 30px;
-    margin: 30px;
-    color:white;
 }
+
+
+
