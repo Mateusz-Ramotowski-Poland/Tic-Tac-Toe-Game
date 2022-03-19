@@ -6,7 +6,17 @@ body{
 .col{
     background-color: blue;
     color: white;
+    height: 60px;
 }
 h1, footer, p{
     padding: 0;
+}
+
+.test{
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    padding: 30px;
+    margin: 30px;
+    color:white;
 }
