@@ -1,0 +1,12 @@
+/* class names: word-word-word (NOT CAMEL CASE) */
+/* think about system how do you want to create class names: where they are in html code, what they do... */
+body{
+    background-color: white;
+}
+.col{
+    background-color: blue;
+    color: white;
+}
+h1, footer, p{
+    padding: 0;
+}
