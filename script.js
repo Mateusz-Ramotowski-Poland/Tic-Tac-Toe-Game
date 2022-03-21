@@ -10,19 +10,19 @@ use chrome debugger for finding bugs*/
 const gridArea = document.getElementsByClassName("grid-area")[0];
 const buttonsChangeGridSize = document.getElementsByTagName("button"); // there are three buttons
 
-function drawBoardToPLayDOM(event) {
+function drawGridToPLayDOM(event) {
   const numberOrRowsColumns = event.currentTarget.innerText[0]; //first char from clicked button 
   let innerHTML = "";
   for (let i = 0; i < numberOrRowsColumns; i++) {
-    innerHTML+='\n<div class="row">\n'
+    innerHTML+='\n<div class="grid-row">\n'
     for (let i = 0; i < numberOrRowsColumns; i++) {
-      innerHTML+='  <div class="board-game-area"></div>\n';
+      innerHTML+='  <div class="grid-box"></div>\n';
     }
     innerHTML+='</div>\n';
   }
   gridArea.innerHTML = innerHTML;
 }
 for(let buttonChangeGridSize of buttonsChangeGridSize){
-  buttonChangeGridSize.addEventListener("click", drawBoardToPLayDOM);
+  buttonChangeGridSize.addEventListener("click", drawGridToPLayDOM);
 }
 

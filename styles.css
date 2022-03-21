@@ -2,39 +2,35 @@
 /* think about system how do you want to create class names: where they are in html code, what they do... */
 /* Think about problem with laST MARGIN */
 body {
-  background-color: white;
   text-align: center;
 }
 footer {
   text-align: left;
 }
 h1 {
-  border-bottom: solid 2px red;
+  border-bottom: solid 2px red; /* work on this effect */
 }
 h1,
 footer,
-p,
-.col,
-.col-2,
-.col-3 {
+p {
   padding: 0;
 }
 
-.board-game-area {
-  background-color: blue;
-  color: white;
+.grid-box {
+  background-color: blue;  /* think which color choose */
+  color: white; /* think which color choose */
   height: 50px;
   width: 50px;
   margin-right: 6px;
 }
-/* .board-game-area:nth-of-type(3n) {
+/* .grid-box:nth-of-type(3n) {
   margin-right: 0;
 } */
-.row {
+.grid-row {
   display: flex;
   justify-content: center;
   margin-bottom: 6px;
 }
-/* .row:nth-of-type(3) {
+/* .grid-row:nth-of-type(3) {
   margin-bottom: 0;
 } */
