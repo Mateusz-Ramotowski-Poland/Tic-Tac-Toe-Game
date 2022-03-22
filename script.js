@@ -6,9 +6,10 @@ Use camelCase for variable name. Think about system for variable names.
 function names: use words get, change, delete, create, add, return
 from begging write clean code, do small code refactoring
 use chrome debugger for finding bugs*/
-//alert("It is connected");  // It works
+const gridBoxes = document.getElementsByClassName("grid-box");
 const gridArea = document.getElementsByClassName("grid-area")[0];
-const buttonsChangeGridSize = document.getElementsByTagName("button"); // there are three buttons
+const buttonsChangeGridSize = document.getElementsByClassName("buttons-change-grid-size"); // there are three buttons
+const buttonPLayAgain = document.getElementsByClassName("button-play-again")[0];
 
 function drawGridToPLayDOM(event) {
   const numberOrRowsColumns = event.currentTarget.innerText[0]; //first char from clicked button 
@@ -21,8 +22,25 @@ function drawGridToPLayDOM(event) {
     innerHTML+='</div>\n';
   }
   gridArea.innerHTML = innerHTML;
+  for(let buttonChangeGridSize of buttonsChangeGridSize){
+    buttonChangeGridSize.hidden = true;
+  }
+  buttonPLayAgain.hidden = false;
+  for(let gridBox of gridBoxes){
+    gridBox.addEventListener("click", function(event){
+      event.target.innerText = "X";
+
+    })
+  }
 }
+
 for(let buttonChangeGridSize of buttonsChangeGridSize){
   buttonChangeGridSize.addEventListener("click", drawGridToPLayDOM);
 }
+buttonPLayAgain.addEventListener("click", function(){
+  for(let buttonChangeGridSize of buttonsChangeGridSize){
+    buttonChangeGridSize.hidden = false;
+  }
+  buttonPLayAgain.hidden = true;
+})
 
