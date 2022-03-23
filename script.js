@@ -12,6 +12,9 @@ const buttonsChangeGridSize = document.getElementsByClassName(
   "buttons-change-grid-size"
 ); // there are three buttons
 const buttonPLayAgain = document.getElementsByClassName("button-play-again")[0];
+const informationForPlayerArea = document.getElementsByClassName(
+  "information-for-player"
+)[0];
 let freeGridBoxes = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // for 3x3 grid;
 
 function gridBoxFunctionality(event) {
@@ -68,6 +71,17 @@ function drawGridToPLayDOM(event) {
   for (let i = 0; i < gridBoxes.length; i++) {
     gridBoxes[i].addEventListener("click", gridBoxFunctionality);
   }
+  informationForPlayerArea.textContent = "Place 3 in a row to win!";
+  if (this.innerText[0] === "3") {
+    freeGridBoxes.length = 9;
+  } else if (this.innerText[0] === "5") {
+    freeGridBoxes.length = 25;
+  } else {
+    freeGridBoxes.length = 49;
+  }
+  for (let i = 0; i < freeGridBoxes.length; i++) {
+    freeGridBoxes[i] = i;
+  }
 }
 
 for (let buttonChangeGridSize of buttonsChangeGridSize) {
@@ -78,9 +92,7 @@ buttonPLayAgain.addEventListener("click", function () {
     buttonChangeGridSize.hidden = false;
   }
   buttonPLayAgain.hidden = true;
-  freeGridBoxes.length = 9;
-  for (let i = 0; i < freeGridBoxes.length; i++) {
-    freeGridBoxes[i] = i;
-  }
+  gridArea.innerHTML = "";
+  informationForPlayerArea.textContent = "Choose grid to play.";
   console.log(freeGridBoxes);
 });

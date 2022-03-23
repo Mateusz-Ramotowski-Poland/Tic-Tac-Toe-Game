@@ -2,8 +2,8 @@
 technologies used
 contact -->
 # Hangman-Game-Vanilia-JS
-> You can play hangman game in web browser.
-> Live demo [_here_](https://www.example.com). 
+> 
+>  
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -45,11 +45,14 @@ When I click button to change grid:
 *V  ukryj wszystkie przyciski grid size (atrybut hidden)
 *V  pokaż przycisk play again (atrybut hidden)
 *V  dodaj EventListener dla każdego grid Box
+*V   change information for player area na "Place 3 in a row to win!"
+*V  give freeGridBoxes początkowe elementy i długość
 
 When I click button play again:
 *V  pokaż przyciski change grid size
 *V  ukryj przycisk play again
-*V  give freeGridBoxes początkowe elementy i długość
+*V   usuń grid area to play (zamień innerHTML of this section na "")
+*V   change information for player area na "Choose grid to play."
 
 When I click on Grid Box:
 *V  narysuj X na tym polu (gracz)
