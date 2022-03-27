@@ -19,16 +19,17 @@ const freeGridBoxes = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // for 3x3 grid;
 const xOnGrid = [];
 const oOnGrid = [];
 
-function checkIfYouWon(whoWonString, ) { // now it works only for X for 3x3 grid
+function checkIfYouWon(whoWonString, XOrOString) { 
+  XOrOString = XOrOString === 'O' ? oOnGrid : xOnGrid; 
   const didYOuWOn =
-    (xOnGrid[0] && xOnGrid[1] && xOnGrid[2]) ||
-    (xOnGrid[3] && xOnGrid[4] && xOnGrid[5]) || 
-    (xOnGrid[6] && xOnGrid[7] && xOnGrid[8]) || 
-    (xOnGrid[0] && xOnGrid[3] && xOnGrid[6]) || 
-    (xOnGrid[1] && xOnGrid[4] && xOnGrid[7]) || 
-    (xOnGrid[2] && xOnGrid[5] && xOnGrid[8]) || 
-    (xOnGrid[0] && xOnGrid[4] && xOnGrid[8]) || 
-    (xOnGrid[2] && xOnGrid[4] && xOnGrid[6]) || 
+    (XOrOString[0] && XOrOString[1] && XOrOString[2]) ||
+    (XOrOString[3] && XOrOString[4] && XOrOString[5]) || 
+    (XOrOString[6] && XOrOString[7] && XOrOString[8]) || 
+    (XOrOString[0] && XOrOString[3] && XOrOString[6]) || 
+    (XOrOString[1] && XOrOString[4] && XOrOString[7]) || 
+    (XOrOString[2] && XOrOString[5] && XOrOString[8]) || 
+    (XOrOString[0] && XOrOString[4] && XOrOString[8]) || 
+    (XOrOString[2] && XOrOString[4] && XOrOString[6]) || 
     null;
   if (didYOuWOn) {
     informationForPlayerArea.textContent = whoWonString;
@@ -48,9 +49,9 @@ function gridBoxFunctionality(event) {
       break;
     }
   }
-  xOnGrid[placeInFreeGridBoxes] = 1;
+  xOnGrid[placeInFreeGridBoxes] = 1; // here can be any truthy value
   freeGridBoxes[placeInFreeGridBoxes] = null;
-  checkIfYouWon();
+  checkIfYouWon("X won!", "X");
   // below checking free Grid boxes
   for (let i = 0; i < freeGridBoxes.length; i++) {
     let temp1 = freeGridBoxes[i] ?? "null inside";
@@ -66,9 +67,10 @@ function gridBoxFunctionality(event) {
       randomNumber = Math.floor(Math.random() * freeGridBoxes.length);
     } while (freeGridBoxes[randomNumber] === null);
     freeGridBoxes[randomNumber] = null;
-    oOnGrid[randomNumber] = 1;
+    oOnGrid[randomNumber] = 1; // here can be any truthy value
     gridBoxes[randomNumber].innerText = "O";
     gridBoxes[randomNumber].removeEventListener("click", gridBoxFunctionality);
+    checkIfYouWon("O won!", "O");
   }
   console.log(
     `free grid boxes:${freeGridBoxes}, oPositionOnGrid:${oOnGrid}, xPositionOnGrid:${xOnGrid}`
@@ -103,8 +105,12 @@ function drawGridToPLayDOM(event) {
   for (let i = 0; i < freeGridBoxes.length; i++) {
     freeGridBoxes[i] = i;
   }
-  //xOnGrid = [];
-  // oOnGrid = []; this will produce Uncaught TypeError: Assignment to constant variable.
+  while(xOnGrid.includes(1)){
+    xOnGrid.pop(); // delete last element from array and change array length
+  }
+  while(oOnGrid.includes(1)){
+    oOnGrid.pop();
+  }
 }
 
 for (let buttonChangeGridSize of buttonsChangeGridSize) {
@@ -119,3 +125,22 @@ buttonPLayAgain.addEventListener("click", function () {
   informationForPlayerArea.textContent = "Choose grid to play.";
   console.log(freeGridBoxes);
 });
+
+// this function is used for checking array behawiour, for testing
+function funWithArrays(){
+  const arr1 =[];
+  console.log(arr1);
+  arr1[20] = 1;
+  arr1[10] = 1;
+  console.log(arr1);
+  for(const el of arr1){
+    console.log(el);
+  }
+  
+ while(arr1.includes(1)){
+   arr1.pop()
+ }
+ console.log(arr1);
+  
+}
+funWithArrays();

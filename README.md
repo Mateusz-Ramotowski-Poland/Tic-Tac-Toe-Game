@@ -47,8 +47,8 @@ When I click button to change grid:
 *V  dodaj EventListener dla każdego grid Box
 *V   change information for player area na "Place 3 in a row to win!"
 *V  give freeGridBoxes początkowe elementy i długość
-*   clean xOnGRid
-*   clean oOnGrid
+*V   clean xOnGRid
+*V   clean oOnGrid
 
 When I click button play again:
 *V  pokaż przyciski change grid size
@@ -63,7 +63,7 @@ When I click on Grid Box:
 *V  zmień wartość tablicy freeGridBoxes
 *V  sprawdź czy są wolne miejsca w tablicy freeGridBoxes (Nullish coalescing operator (??))
 *V  komputer stawia 0 na losowym wolnym polu
-*  sprawdź zwycięstwo dla O
+*V  sprawdź zwycięstwo dla O
 *V  zabierz event lestenera dla tego pola
 *V  zmień wartość tablicy freeGridBoxes 
 
