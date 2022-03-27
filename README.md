@@ -29,6 +29,7 @@ Finished features:
 - You can play with computer on grid 3x3.
 - You can choose other grids to play (but game won't check correctly who won the game).
 - Game gives text information for player.
+
 Planned features:
 - option for playing on different grids: 5x5 and 7x7.
 - option for choosing if You want to play with computer or other player.
