@@ -1,9 +1,9 @@
 <!-- finished:
 technologies used
 contact -->
-# Hangman-Game-Vanilia-JS
-> 
->  
+# Game Tic Tac Toe
+It will be more complex version of Tic Tac Toe game.
+ 
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -12,13 +12,11 @@ contact -->
 * [Screenshots](#screenshots)
 * [Project Status](#project-status)
 * [Acknowledgements](#acknowledgements)
-* [Description of Code](#Description-of-Code)
+* [Description of Code. Help for the author.](#Description-of-Code.-Help-for-the-author.)
 * [Contact](#contact)
-<!-- * [License](#license) -->
-
 
 ## General Information
-
+This project is a browser game and I think that everyone knows the rules.  I created it to practice my programming skills. In this project, I focused on learning JS and chrome developer tools. It's working on laptop/computer screen on Google Chrome browser. I didn't check it on other browsers and on mobiles - I want to do it in the future. 
 
 ## Technologies Used
 Project is created with:
@@ -26,20 +24,31 @@ Project is created with:
 * CSS3
 * JS(ES6+)
 
-I was using chrome developer tools for testing my application.
+I was using Chrome developer tools for testing my application.
 ## Features
-
+Finished features:
+- You can play with computer on grid 3x3.
+- You can choose other grids to play (but game won't check correctly who won the game).
+- Game gives text information for player.
+Planned features:
+- option for playing on different grids: 5x5 and 7x7.
+- option for choosing if You want to play with computer or other player.
 
 ## Screenshots
 
 
 ## Project Status
-
+Project is in progress.
 
 ## Acknowledgements
+Thanks https://pl.crazygames.com/gra/tic-tac-toe for idea of more complex Tic TAc Toe version.
 
+## Description of Code. Help for the author.
+When someone will win the game:
+*V zmień information for player area na "X/O won!"
+*V zabierz event listenery dla grid boxów
+*V zmień wartość zmiennej someoneWon na true
 
-## Description of Code
 When I click button to change grid:
 *V  grid area is rendered
 *V  ukryj wszystkie przyciski grid size (atrybut hidden)
@@ -55,12 +64,14 @@ When I click button play again:
 *V  ukryj przycisk play again
 *V   usuń grid area to play (zamień innerHTML of this section na "")
 *V   change information for player area na "Choose grid to play."
+*V zmień wartość someoneWon na false
 
 When I click on Grid Box:
 *V  narysuj X na tym polu (gracz)
 *V  sprawdź zwycięstwo dla X
 *V  zabierz event lestenera dla tego pola
 *V  zmień wartość tablicy freeGridBoxes
+
 *V  sprawdź czy są wolne miejsca w tablicy freeGridBoxes (Nullish coalescing operator (??))
 *V  komputer stawia 0 na losowym wolnym polu
 *V  sprawdź zwycięstwo dla O
