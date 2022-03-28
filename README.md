@@ -31,7 +31,7 @@ Finished features:
 - Game gives text information for player.
 
 Planned features:
-- option for playing on different grids: 5x5 and 7x7.
+- option for playing on different grid: 5x5
 - option for choosing if You want to play with computer or other player.
 
 ## Screenshots
