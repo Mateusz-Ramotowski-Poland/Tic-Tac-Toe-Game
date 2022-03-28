@@ -3,6 +3,7 @@ technologies used
 contact -->
 # Game Tic Tac Toe
 It will be more complex version of Tic Tac Toe game. It's my own project.
+You can play live here: https://mateusz-ramotowski-poland.github.io/Tic-Tac-Toe-Game/
  
 
 ## Table of Contents
