@@ -2,7 +2,7 @@
 technologies used
 contact -->
 # Game Tic Tac Toe
-It will be more complex version of Tic Tac Toe game.
+It will be more complex version of Tic Tac Toe game. It's my own project.
  
 
 ## Table of Contents
