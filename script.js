@@ -7,7 +7,7 @@ const gridBoxes = document.getElementsByClassName("grid-box");
 const gridArea = document.getElementsByClassName("grid-area")[0];
 const buttonsChangeGridSize = document.getElementsByClassName(
   "buttons-change-grid-size"
-); // there are three buttons
+); // there are two buttons
 const buttonPLayAgain = document.getElementsByClassName("button-play-again")[0];
 const informationForPlayerArea = document.getElementsByClassName(
   "information-for-player"
@@ -16,20 +16,56 @@ const freeGridBoxes = [];
 const xOnGrid = [];
 const oOnGrid = [];
 let someoneWon = false;
+let whichGrid;
 
 function checkIfYouWon(whoWonString, XOrOString) {
   // function works for 3x3 grid
   XOrOString = XOrOString === "O" ? oOnGrid : xOnGrid;
-  const didYOuWOn =
-    (XOrOString[0] && XOrOString[1] && XOrOString[2]) ||
-    (XOrOString[3] && XOrOString[4] && XOrOString[5]) ||
-    (XOrOString[6] && XOrOString[7] && XOrOString[8]) ||
-    (XOrOString[0] && XOrOString[3] && XOrOString[6]) ||
-    (XOrOString[1] && XOrOString[4] && XOrOString[7]) ||
-    (XOrOString[2] && XOrOString[5] && XOrOString[8]) ||
-    (XOrOString[0] && XOrOString[4] && XOrOString[8]) ||
-    (XOrOString[2] && XOrOString[4] && XOrOString[6]) ||
-    null;
+  let didYOuWOn;
+  if (whichGrid === "3") {
+    didYOuWOn =
+      (XOrOString[0] && XOrOString[1] && XOrOString[2]) ||
+      (XOrOString[3] && XOrOString[4] && XOrOString[5]) ||
+      (XOrOString[6] && XOrOString[7] && XOrOString[8]) ||
+      (XOrOString[0] && XOrOString[3] && XOrOString[6]) ||
+      (XOrOString[1] && XOrOString[4] && XOrOString[7]) ||
+      (XOrOString[2] && XOrOString[5] && XOrOString[8]) ||
+      (XOrOString[0] && XOrOString[4] && XOrOString[8]) ||
+      (XOrOString[2] && XOrOString[4] && XOrOString[6]) ||
+      null;
+  }
+  if (whichGrid === "5") {
+    didYOuWOn =
+      (XOrOString[0] && XOrOString[1] && XOrOString[2] && XOrOString[3]) ||
+      (XOrOString[1] && XOrOString[2] && XOrOString[3] && XOrOString[4]) ||
+      (XOrOString[5] && XOrOString[6] && XOrOString[7] && XOrOString[8]) ||
+      (XOrOString[6] && XOrOString[7] && XOrOString[8] && XOrOString[9]) ||
+      (XOrOString[10] && XOrOString[11] && XOrOString[12] && XOrOString[13]) ||
+      (XOrOString[11] && XOrOString[12] && XOrOString[13] && XOrOString[14]) ||
+      (XOrOString[15] && XOrOString[16] && XOrOString[17] && XOrOString[18]) ||
+      (XOrOString[16] && XOrOString[17] && XOrOString[18] && XOrOString[19]) ||
+      (XOrOString[20] && XOrOString[21] && XOrOString[22] && XOrOString[23]) ||
+      (XOrOString[21] && XOrOString[22] && XOrOString[23] && XOrOString[24]) ||// end of horizontally
+      (XOrOString[0] && XOrOString[5] && XOrOString[10] && XOrOString[15]) ||
+      (XOrOString[5] && XOrOString[10] && XOrOString[15] && XOrOString[20]) ||
+      (XOrOString[1] && XOrOString[6] && XOrOString[11] && XOrOString[16]) ||
+      (XOrOString[6] && XOrOString[11] && XOrOString[16] && XOrOString[21]) ||
+      (XOrOString[2] && XOrOString[7] && XOrOString[12] && XOrOString[17]) ||
+      (XOrOString[7] && XOrOString[12] && XOrOString[17] && XOrOString[22]) ||
+      (XOrOString[3] && XOrOString[8] && XOrOString[13] && XOrOString[18]) ||
+      (XOrOString[8] && XOrOString[13] && XOrOString[18] && XOrOString[23]) ||
+      (XOrOString[4] && XOrOString[9] && XOrOString[14] && XOrOString[19]) ||
+      (XOrOString[9] && XOrOString[14] && XOrOString[19] && XOrOString[24]) ||// end of vertically
+      (XOrOString[5] && XOrOString[11] && XOrOString[17] && XOrOString[23]) ||
+      (XOrOString[0] && XOrOString[6] && XOrOString[12] && XOrOString[18]) ||
+      (XOrOString[6] && XOrOString[12] && XOrOString[18] && XOrOString[24]) ||
+      (XOrOString[1] && XOrOString[7] && XOrOString[13] && XOrOString[19]) ||//
+      (XOrOString[9] && XOrOString[13] && XOrOString[17] && XOrOString[21]) ||
+      (XOrOString[4] && XOrOString[8] && XOrOString[12] && XOrOString[16]) ||
+      (XOrOString[8] && XOrOString[12] && XOrOString[16] && XOrOString[20]) ||
+      (XOrOString[3] && XOrOString[7] && XOrOString[11] && XOrOString[15]) ||  
+      null;
+  }
   if (didYOuWOn) {
     informationForPlayerArea.textContent = whoWonString;
     for (let i = 0; i < gridBoxes.length; i++) {
@@ -85,6 +121,7 @@ function gridBoxFunctionality(event) {
 }
 function drawGridToPLayDOM(event) {
   const numberOrRowsColumns = event.currentTarget.innerText[0]; //first char from clicked button
+  whichGrid = event.currentTarget.innerText[0];
   let innerHTML = "";
   for (let i = 0; i < numberOrRowsColumns; i++) {
     innerHTML += '\n<div class="grid-row">\n';
@@ -106,9 +143,7 @@ function drawGridToPLayDOM(event) {
     freeGridBoxes.length = 9;
   } else if (this.innerText[0] === "5") {
     freeGridBoxes.length = 25;
-  } else {
-    freeGridBoxes.length = 49;
-  }
+  } 
   for (let i = 0; i < freeGridBoxes.length; i++) {
     freeGridBoxes[i] = i; // here can be every truthy value
   }
