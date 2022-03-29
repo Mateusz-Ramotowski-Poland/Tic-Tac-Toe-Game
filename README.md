@@ -27,7 +27,6 @@ I was using Chrome developer tools for testing my application.
 - Game gives text information for player.
 
 ## Screenshots
-![1](https://user-images.githubusercontent.com/83215700/160609387-708bc797-810a-47c7-b679-f8d354c23d33.PNG)
 ![4](https://user-images.githubusercontent.com/83215700/160609399-e5a7f919-d5bf-4386-a127-83c8e0aa156a.PNG)
 ![3](https://user-images.githubusercontent.com/83215700/160609409-8251cafe-1046-41d5-ac7f-991d1ff5276c.PNG)
 ![2](https://user-images.githubusercontent.com/83215700/160609421-12fe1e92-96a9-439d-ae52-f91a1a7b877b.PNG)
