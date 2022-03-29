@@ -8,9 +8,12 @@ const buttonPLayAgain = document.getElementsByClassName("button-play-again")[0];
 const buttonsChangePlayMode = document.getElementsByClassName(
   "buttons-change-play-mode"
 );
-const informationForPlayerArea = document.getElementsByClassName(
+const informationMoveArea = document.getElementsByClassName(
   "information-for-player"
 )[0];
+const informationForPlayerArea = document.getElementsByClassName(
+  "information-for-player"
+)[1];
 const freeGridBoxes = [];
 const xOnGrid = [];
 const oOnGrid = [];
@@ -73,6 +76,7 @@ function checkIfYouWon(whoWonString, XOrOString) {
       gridBoxes[i].removeEventListener("click", gridBoxFunctionality);
     }
     someoneWon = true;
+    informationMoveArea.textContent = '';
   }
 }
 function gridBoxFunctionality(event) {
@@ -87,20 +91,21 @@ function gridBoxFunctionality(event) {
 function playerPlayerMove(event, self) {
   let placeInGrid;
   let playerGrid = whoPlay === "X" ? xOnGrid : oOnGrid;
-  event.target.innerText = whoPlay; 
+  event.target.innerText = whoPlay;
   for (let i = 0; i < gridBoxes.length; i++) {
     if (self === gridBoxes[i]) {
       placeInGrid = i;
       break;
     }
   }
-  playerGrid[placeInGrid] = 1; // here can be any truthy value 
-  checkIfYouWon(`${whoPlay} won!`, whoPlay); 
+  playerGrid[placeInGrid] = 1; // here can be any truthy value
+  checkIfYouWon(`${whoPlay} won!`, whoPlay);
   if (!someoneWon) {
     self.removeEventListener("click", gridBoxFunctionality);
+    whoPlay = whoPlay === "X" ? "O" : "X";
+    informationMoveArea.textContent = `${whoPlay} move`;
   }
-  whoPlay = whoPlay === "X" ? "O" : "X";
-/*   console.log(
+  /*   console.log(
     `playMode: ${playMode}. xOnGrid: ${xOnGrid}. oOnGrid: ${oOnGrid}`
   ); */
 }
@@ -185,6 +190,7 @@ function buttonsChangeGridSizeFunctionality(event) {
   while (oOnGrid.includes(1)) {
     oOnGrid.pop();
   }
+  informationMoveArea.textContent = `${whoPlay} move`;
 }
 
 for (const buttonChangeGridSize of buttonsChangeGridSize) {
@@ -196,14 +202,23 @@ for (const buttonChangeGridSize of buttonsChangeGridSize) {
 for (const buttonChangePlayMode of buttonsChangePlayMode) {
   buttonChangePlayMode.addEventListener("click", function () {
     playMode = buttonChangePlayMode.textContent;
+    for (let buttonChangeGridSize of buttonsChangeGridSize) {
+      buttonChangeGridSize.hidden = false;
+    }
+    for (const buttonChangePlayMode of buttonsChangePlayMode) {
+      buttonChangePlayMode.hidden = true;
+    }
+    informationForPlayerArea.textContent = "Choose grid to play.";
   });
 }
 buttonPLayAgain.addEventListener("click", function () {
-  for (let buttonChangeGridSize of buttonsChangeGridSize) {
-    buttonChangeGridSize.hidden = false;
+  for (const buttonChangePlayMode of buttonsChangePlayMode) {
+    buttonChangePlayMode.hidden = false;
   }
   buttonPLayAgain.hidden = true;
   gridArea.innerHTML = "";
-  informationForPlayerArea.textContent = "Choose grid to play.";
+  informationForPlayerArea.textContent = "Choose play mode.";
+  informationMoveArea.textContent = '';
   someoneWon = false;
+  whoPlay = 'X'
 });
