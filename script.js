@@ -5,6 +5,9 @@ const buttonsChangeGridSize = document.getElementsByClassName(
   "buttons-change-grid-size"
 );
 const buttonPLayAgain = document.getElementsByClassName("button-play-again")[0];
+const buttonsChangePlayMode = document.getElementsByClassName(
+  "buttons-change-play-mode"
+);
 const informationForPlayerArea = document.getElementsByClassName(
   "information-for-player"
 )[0];
@@ -13,6 +16,8 @@ const xOnGrid = [];
 const oOnGrid = [];
 let someoneWon = false;
 let whichGrid;
+let playMode;
+let whoPlay = "X";
 
 function checkIfYouWon(whoWonString, XOrOString) {
   XOrOString = XOrOString === "O" ? oOnGrid : xOnGrid;
@@ -71,12 +76,42 @@ function checkIfYouWon(whoWonString, XOrOString) {
   }
 }
 function gridBoxFunctionality(event) {
+  const self = this;
+  if (playMode === "computer-player") {
+    playerComputerMove(event, self);
+  }
+  if (playMode === "player-player") {
+    playerPlayerMove(event, self);
+  }
+}
+function playerPlayerMove(event, self) {
+  let placeInGrid;
+  let playerGrid = whoPlay === "X" ? xOnGrid : oOnGrid;
+  event.target.innerText = whoPlay; 
+  for (let i = 0; i < gridBoxes.length; i++) {
+    if (self === gridBoxes[i]) {
+      placeInGrid = i;
+      break;
+    }
+  }
+  playerGrid[placeInGrid] = 1; // here can be any truthy value 
+  checkIfYouWon(`${whoPlay} won!`, whoPlay); 
+  if (!someoneWon) {
+    self.removeEventListener("click", gridBoxFunctionality);
+  }
+  whoPlay = whoPlay === "X" ? "O" : "X";
+/*   console.log(
+    `playMode: ${playMode}. xOnGrid: ${xOnGrid}. oOnGrid: ${oOnGrid}`
+  ); */
+}
+
+function playerComputerMove(event, self) {
   let xPlaceInGrid;
   let oPlaceInGrid;
   let counterCheckingNullInFreeGridBoxes = 0;
   event.target.innerText = "X";
   for (let i = 0; i < gridBoxes.length; i++) {
-    if (this === gridBoxes[i]) {
+    if (self === gridBoxes[i]) {
       xPlaceInGrid = i;
       break;
     }
@@ -85,7 +120,7 @@ function gridBoxFunctionality(event) {
   checkIfYouWon("X won!", "X");
   if (!someoneWon) {
     // in event listener this mean DOM element that handler is attached to
-    this.removeEventListener("click", gridBoxFunctionality);
+    self.removeEventListener("click", gridBoxFunctionality);
     freeGridBoxes[xPlaceInGrid] = null;
     // below checking free Grid boxes
     for (let i = 0; i < freeGridBoxes.length; i++) {
@@ -152,11 +187,16 @@ function buttonsChangeGridSizeFunctionality(event) {
   }
 }
 
-for (let buttonChangeGridSize of buttonsChangeGridSize) {
+for (const buttonChangeGridSize of buttonsChangeGridSize) {
   buttonChangeGridSize.addEventListener(
     "click",
     buttonsChangeGridSizeFunctionality
   );
+}
+for (const buttonChangePlayMode of buttonsChangePlayMode) {
+  buttonChangePlayMode.addEventListener("click", function () {
+    playMode = buttonChangePlayMode.textContent;
+  });
 }
 buttonPLayAgain.addEventListener("click", function () {
   for (let buttonChangeGridSize of buttonsChangeGridSize) {

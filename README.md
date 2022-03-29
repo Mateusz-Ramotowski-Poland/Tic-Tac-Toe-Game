@@ -27,11 +27,10 @@ Project is created with:
 I was using Chrome developer tools for testing my application.
 ## Features
 Finished features:
-- You can play with computer on grid 3x3.
-- You can choose other grids to play (but game won't check correctly who won the game).
+- You can play with computer on grid 3x3 and 5x5.
+- You can choose other grid to play: 3x3 or 5x5.
 - Game gives text information for player.
 Planned features:
-- option for playing on different grids: 5x5 and 7x7.
 - option for choosing if You want to play with computer or other player.
 
 ## Screenshots
