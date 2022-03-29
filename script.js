@@ -22,6 +22,144 @@ let whichGrid;
 let playMode;
 let whoPlay = "X";
 
+for (const buttonChangePlayMode of buttonsChangePlayMode) {
+  buttonChangePlayMode.addEventListener("click", function () {
+    playMode = buttonChangePlayMode.textContent;
+    for (let buttonChangeGridSize of buttonsChangeGridSize) {
+      buttonChangeGridSize.hidden = false;
+    }
+    for (const buttonChangePlayMode of buttonsChangePlayMode) {
+      buttonChangePlayMode.hidden = true;
+    }
+    informationForPlayerArea.textContent = "Choose grid to play.";
+  });
+}
+for (const buttonChangeGridSize of buttonsChangeGridSize) {
+  buttonChangeGridSize.addEventListener(
+    "click",
+    buttonsChangeGridSizeFunctionality
+  );
+}
+buttonPLayAgain.addEventListener("click", function () {
+  for (const buttonChangePlayMode of buttonsChangePlayMode) {
+    buttonChangePlayMode.hidden = false;
+  }
+  buttonPLayAgain.hidden = true;
+  gridArea.innerHTML = "";
+  informationForPlayerArea.textContent = "Choose play mode.";
+  informationMoveArea.textContent = '';
+  someoneWon = false;
+  whoPlay = 'X'
+});
+function buttonsChangeGridSizeFunctionality(event) {
+  const numberOrRowsColumns = event.currentTarget.innerText[0]; //first char from clicked button
+  whichGrid = numberOrRowsColumns === "3" ? "3x3" : "5x5";
+  let innerHTML = "";
+  for (let i = 0; i < numberOrRowsColumns; i++) {
+    innerHTML += '\n<div class="grid-row">\n';
+    for (let i = 0; i < numberOrRowsColumns; i++) {
+      innerHTML += '  <div class="grid-box"></div>\n';
+    }
+    innerHTML += "</div>\n";
+  }
+  gridArea.innerHTML = innerHTML;
+  for (let buttonChangeGridSize of buttonsChangeGridSize) {
+    buttonChangeGridSize.hidden = true;
+  }
+  buttonPLayAgain.hidden = false;
+  for (let i = 0; i < gridBoxes.length; i++) {
+    gridBoxes[i].addEventListener("click", gridBoxFunctionality);
+  }
+  informationForPlayerArea.textContent = `Place ${
+    whichGrid === "3x3" ? "3" : "4"
+  } in a row to win!`;
+  if (this.innerText[0] === "3") {
+    freeGridBoxes.length = 9;
+  } else if (this.innerText[0] === "5") {
+    freeGridBoxes.length = 25;
+  }
+  for (let i = 0; i < freeGridBoxes.length; i++) {
+    freeGridBoxes[i] = i; // here can be every truthy value
+  }
+  while (xOnGrid.includes(1)) {
+    xOnGrid.pop(); // delete last element from array and change array length
+  }
+  while (oOnGrid.includes(1)) {
+    oOnGrid.pop();
+  }
+  informationMoveArea.textContent = `${whoPlay} move`;
+}
+function gridBoxFunctionality(event) {
+  const self = this;
+  if (playMode === "computer-player") {
+    playerComputerMove(event, self);
+  }
+  if (playMode === "player-player") {
+    playerPlayerMove(event, self);
+  }
+}
+function playerComputerMove(event, self) {
+  let xPlaceInGrid;
+  let oPlaceInGrid;
+  let counterCheckingNullInFreeGridBoxes = 0;
+  event.target.innerText = "X";
+  for (let i = 0; i < gridBoxes.length; i++) {
+    if (self === gridBoxes[i]) {
+      xPlaceInGrid = i;
+      break;
+    }
+  }
+  xOnGrid[xPlaceInGrid] = 1; // here can be any truthy value
+  checkIfYouWon("X won!", "X");
+  if (!someoneWon) {
+    // in event listener this mean DOM element that handler is attached to
+    self.removeEventListener("click", gridBoxFunctionality);
+    freeGridBoxes[xPlaceInGrid] = null;
+    // below checking free Grid boxes
+    for (let i = 0; i < freeGridBoxes.length; i++) {
+      let temp1 = freeGridBoxes[i] ?? "null inside";
+      if (temp1 === "null inside") {
+        counterCheckingNullInFreeGridBoxes++;
+      } else {
+        break;
+      }
+    }
+    if (counterCheckingNullInFreeGridBoxes !== freeGridBoxes.length) {
+      // below computer move
+      do {
+        oPlaceInGrid = Math.floor(Math.random() * freeGridBoxes.length);
+      } while (freeGridBoxes[oPlaceInGrid] === null);
+      gridBoxes[oPlaceInGrid].innerText = "O";
+      oOnGrid[oPlaceInGrid] = 1; // here can be any truthy value
+      checkIfYouWon("O won!", "O");
+      if (!someoneWon) {
+        freeGridBoxes[oPlaceInGrid] = null;
+        gridBoxes[oPlaceInGrid].removeEventListener(
+          "click",
+          gridBoxFunctionality
+        );
+      }
+    }
+  }
+}
+function playerPlayerMove(event, self) {
+  let placeInGrid;
+  let playerGrid = whoPlay === "X" ? xOnGrid : oOnGrid;
+  event.target.innerText = whoPlay;
+  for (let i = 0; i < gridBoxes.length; i++) {
+    if (self === gridBoxes[i]) {
+      placeInGrid = i;
+      break;
+    }
+  }
+  playerGrid[placeInGrid] = 1; // here can be any truthy value
+  checkIfYouWon(`${whoPlay} won!`, whoPlay);
+  if (!someoneWon) {
+    self.removeEventListener("click", gridBoxFunctionality);
+    whoPlay = whoPlay === "X" ? "O" : "X";
+    informationMoveArea.textContent = `${whoPlay} move`;
+  }
+}
 function checkIfYouWon(whoWonString, XOrOString) {
   XOrOString = XOrOString === "O" ? oOnGrid : xOnGrid;
   let didYOuWOn;
@@ -79,146 +217,14 @@ function checkIfYouWon(whoWonString, XOrOString) {
     informationMoveArea.textContent = '';
   }
 }
-function gridBoxFunctionality(event) {
-  const self = this;
-  if (playMode === "computer-player") {
-    playerComputerMove(event, self);
-  }
-  if (playMode === "player-player") {
-    playerPlayerMove(event, self);
-  }
-}
-function playerPlayerMove(event, self) {
-  let placeInGrid;
-  let playerGrid = whoPlay === "X" ? xOnGrid : oOnGrid;
-  event.target.innerText = whoPlay;
-  for (let i = 0; i < gridBoxes.length; i++) {
-    if (self === gridBoxes[i]) {
-      placeInGrid = i;
-      break;
-    }
-  }
-  playerGrid[placeInGrid] = 1; // here can be any truthy value
-  checkIfYouWon(`${whoPlay} won!`, whoPlay);
-  if (!someoneWon) {
-    self.removeEventListener("click", gridBoxFunctionality);
-    whoPlay = whoPlay === "X" ? "O" : "X";
-    informationMoveArea.textContent = `${whoPlay} move`;
-  }
-  /*   console.log(
-    `playMode: ${playMode}. xOnGrid: ${xOnGrid}. oOnGrid: ${oOnGrid}`
-  ); */
-}
 
-function playerComputerMove(event, self) {
-  let xPlaceInGrid;
-  let oPlaceInGrid;
-  let counterCheckingNullInFreeGridBoxes = 0;
-  event.target.innerText = "X";
-  for (let i = 0; i < gridBoxes.length; i++) {
-    if (self === gridBoxes[i]) {
-      xPlaceInGrid = i;
-      break;
-    }
-  }
-  xOnGrid[xPlaceInGrid] = 1; // here can be any truthy value
-  checkIfYouWon("X won!", "X");
-  if (!someoneWon) {
-    // in event listener this mean DOM element that handler is attached to
-    self.removeEventListener("click", gridBoxFunctionality);
-    freeGridBoxes[xPlaceInGrid] = null;
-    // below checking free Grid boxes
-    for (let i = 0; i < freeGridBoxes.length; i++) {
-      let temp1 = freeGridBoxes[i] ?? "null inside";
-      if (temp1 === "null inside") {
-        counterCheckingNullInFreeGridBoxes++;
-      } else {
-        break;
-      }
-    }
-    if (counterCheckingNullInFreeGridBoxes !== freeGridBoxes.length) {
-      // below computer move
-      do {
-        oPlaceInGrid = Math.floor(Math.random() * freeGridBoxes.length);
-      } while (freeGridBoxes[oPlaceInGrid] === null);
-      gridBoxes[oPlaceInGrid].innerText = "O";
-      oOnGrid[oPlaceInGrid] = 1; // here can be any truthy value
-      checkIfYouWon("O won!", "O");
-      if (!someoneWon) {
-        freeGridBoxes[oPlaceInGrid] = null;
-        gridBoxes[oPlaceInGrid].removeEventListener(
-          "click",
-          gridBoxFunctionality
-        );
-      }
-    }
-  }
-}
-function buttonsChangeGridSizeFunctionality(event) {
-  const numberOrRowsColumns = event.currentTarget.innerText[0]; //first char from clicked button
-  whichGrid = numberOrRowsColumns === "3" ? "3x3" : "5x5";
-  let innerHTML = "";
-  for (let i = 0; i < numberOrRowsColumns; i++) {
-    innerHTML += '\n<div class="grid-row">\n';
-    for (let i = 0; i < numberOrRowsColumns; i++) {
-      innerHTML += '  <div class="grid-box"></div>\n';
-    }
-    innerHTML += "</div>\n";
-  }
-  gridArea.innerHTML = innerHTML;
-  for (let buttonChangeGridSize of buttonsChangeGridSize) {
-    buttonChangeGridSize.hidden = true;
-  }
-  buttonPLayAgain.hidden = false;
-  for (let i = 0; i < gridBoxes.length; i++) {
-    gridBoxes[i].addEventListener("click", gridBoxFunctionality);
-  }
-  informationForPlayerArea.textContent = `Place ${
-    whichGrid === "3x3" ? "3" : "4"
-  } in a row to win!`;
-  if (this.innerText[0] === "3") {
-    freeGridBoxes.length = 9;
-  } else if (this.innerText[0] === "5") {
-    freeGridBoxes.length = 25;
-  }
-  for (let i = 0; i < freeGridBoxes.length; i++) {
-    freeGridBoxes[i] = i; // here can be every truthy value
-  }
-  while (xOnGrid.includes(1)) {
-    xOnGrid.pop(); // delete last element from array and change array length
-  }
-  while (oOnGrid.includes(1)) {
-    oOnGrid.pop();
-  }
-  informationMoveArea.textContent = `${whoPlay} move`;
-}
 
-for (const buttonChangeGridSize of buttonsChangeGridSize) {
-  buttonChangeGridSize.addEventListener(
-    "click",
-    buttonsChangeGridSizeFunctionality
-  );
-}
-for (const buttonChangePlayMode of buttonsChangePlayMode) {
-  buttonChangePlayMode.addEventListener("click", function () {
-    playMode = buttonChangePlayMode.textContent;
-    for (let buttonChangeGridSize of buttonsChangeGridSize) {
-      buttonChangeGridSize.hidden = false;
-    }
-    for (const buttonChangePlayMode of buttonsChangePlayMode) {
-      buttonChangePlayMode.hidden = true;
-    }
-    informationForPlayerArea.textContent = "Choose grid to play.";
-  });
-}
-buttonPLayAgain.addEventListener("click", function () {
-  for (const buttonChangePlayMode of buttonsChangePlayMode) {
-    buttonChangePlayMode.hidden = false;
-  }
-  buttonPLayAgain.hidden = true;
-  gridArea.innerHTML = "";
-  informationForPlayerArea.textContent = "Choose play mode.";
-  informationMoveArea.textContent = '';
-  someoneWon = false;
-  whoPlay = 'X'
-});
+
+
+
+
+
+
+
+
+
