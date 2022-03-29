@@ -1,5 +1,5 @@
 # Game Tic Tac Toe
-It's more complex version of Tic Tac Toe game. Live demo: https://mateusz-ramotowski-poland.github.io/Tic-Tac-Toe-Game/
+It's my own project. It's more complex version of Tic Tac Toe game. Live demo: https://mateusz-ramotowski-poland.github.io/Tic-Tac-Toe-Game/
  
 
 ## Table of Contents
