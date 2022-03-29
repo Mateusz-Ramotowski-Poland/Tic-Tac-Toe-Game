@@ -41,8 +41,3 @@ Thanks https://pl.crazygames.com/gra/tic-tac-toe for idea of more complex Tic TA
 
 ## Contact
 Created by Mateusz Ramotowski (mateusz.ramotowski.praca@gmail.com) - feel free to contact me!
-
-
-Uwagi:
-- w tym projekcie wyświetlana na stronie www jest branch gh-pages.
-- zanim zmienię branch gh-pages i zapiszę zmiany muszę czasami poczekać do 20 minut zanim zobaczę je na wyświetlanej stronie www.
