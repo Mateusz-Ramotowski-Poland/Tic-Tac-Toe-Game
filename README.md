@@ -22,7 +22,6 @@ Project is created with:
 
 I was using Chrome developer tools for testing my application.
 ## Features
-Features:
 - You can choose if You want to play with computer or other player.
 - You can play on grid 3x3 and 5x5. 
 - Game gives text information for player.
