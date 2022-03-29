@@ -1,11 +1,15 @@
-<!-- After simplest playable, working version write README.md file about this project. -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
     <title>Tic Tac Toe Game. Mateusz Ramotowski</title>
   </head>
   <body>
@@ -14,8 +18,8 @@
     </header>
     <main>
       <section class="grid-area">
-        <!-- below is grid 3x3 to play. I don't need it at the beginning -->
-<!--         <div class="grid-row">
+        <!-- below is grid 3x3 to play. I don't need it at the beginning but the same is rendered after clicking the button to choose the grid. -->
+        <!--         <div class="grid-row">
           <div class="grid-box"></div>
           <div class="grid-box"></div>
           <div class="grid-box"></div>
@@ -32,18 +36,16 @@
         </div> -->
       </section>
       <section>
-        <p class="information-for-player">Choose grid to play.</p>
-
+        <p class="information-for-player"></p>
+        <p class="information-for-player">Choose play mode.</p>
         <button hidden class="button-play-again">Play again!</button>
-        <button class = "buttons-change-grid-size">3x3 grid</button>
-        <button class = "buttons-change-grid-size">5x5 grid</button>
-        <button class = "buttons-change-grid-size">7x7 grid</button>
+        <button hidden class="buttons-change-grid-size">3x3 grid</button>
+        <button hidden class="buttons-change-grid-size">5x5 grid</button>
+        <button class="buttons-change-play-mode">computer-player</button>
+        <button class="buttons-change-play-mode">player-player</button>
       </section>
     </main>
-    <footer>Author: Ramotowski Mateusz.</footer>
-
+    <footer>Author: Ramotowski Mateusz</footer>
     <script src="script.js"></script>
   </body>
 </html>
-
-

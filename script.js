@@ -1,90 +1,59 @@
 "use strict";
-/* Think about system for variable names. 
-function names: use words get, change, delete, create, add, return
-from begging write clean code, do small code refactoring
-use chrome debugger for finding bugs*/
 const gridBoxes = document.getElementsByClassName("grid-box");
 const gridArea = document.getElementsByClassName("grid-area")[0];
 const buttonsChangeGridSize = document.getElementsByClassName(
   "buttons-change-grid-size"
-); // there are three buttons
+);
 const buttonPLayAgain = document.getElementsByClassName("button-play-again")[0];
-const informationForPlayerArea = document.getElementsByClassName(
+const buttonsChangePlayMode = document.getElementsByClassName(
+  "buttons-change-play-mode"
+);
+const informationMoveArea = document.getElementsByClassName(
   "information-for-player"
 )[0];
+const informationForPlayerArea = document.getElementsByClassName(
+  "information-for-player"
+)[1];
 const freeGridBoxes = [];
 const xOnGrid = [];
 const oOnGrid = [];
 let someoneWon = false;
+let whichGrid;
+let playMode;
+let whoPlay = "X";
 
-function checkIfYouWon(whoWonString, XOrOString) {
-  // function works for 3x3 grid
-  XOrOString = XOrOString === "O" ? oOnGrid : xOnGrid;
-  const didYOuWOn =
-    (XOrOString[0] && XOrOString[1] && XOrOString[2]) ||
-    (XOrOString[3] && XOrOString[4] && XOrOString[5]) ||
-    (XOrOString[6] && XOrOString[7] && XOrOString[8]) ||
-    (XOrOString[0] && XOrOString[3] && XOrOString[6]) ||
-    (XOrOString[1] && XOrOString[4] && XOrOString[7]) ||
-    (XOrOString[2] && XOrOString[5] && XOrOString[8]) ||
-    (XOrOString[0] && XOrOString[4] && XOrOString[8]) ||
-    (XOrOString[2] && XOrOString[4] && XOrOString[6]) ||
-    null;
-  if (didYOuWOn) {
-    informationForPlayerArea.textContent = whoWonString;
-    for (let i = 0; i < gridBoxes.length; i++) {
-      gridBoxes[i].removeEventListener("click", gridBoxFunctionality);
+for (const buttonChangePlayMode of buttonsChangePlayMode) {
+  buttonChangePlayMode.addEventListener("click", function () {
+    playMode = buttonChangePlayMode.textContent;
+    for (let buttonChangeGridSize of buttonsChangeGridSize) {
+      buttonChangeGridSize.hidden = false;
     }
-    someoneWon = true;
-  }
+    for (const buttonChangePlayMode of buttonsChangePlayMode) {
+      buttonChangePlayMode.hidden = true;
+    }
+    informationForPlayerArea.textContent = "Choose grid to play.";
+  });
 }
-function gridBoxFunctionality(event) {
-  let placeInFreeGridBoxes;
-  let randomNumber;
-  let counterCheckingNullInFreeGridBoxes = 0;
-  event.target.innerText = "X";
-  // in event listener this mean DOM element that handler is attached to
-  this.removeEventListener("click", gridBoxFunctionality);
-  for (let i = 0; i < gridBoxes.length; i++) {
-    if (this === gridBoxes[i]) {
-      placeInFreeGridBoxes = i;
-      break;
-    }
-  }
-  xOnGrid[placeInFreeGridBoxes] = 1; // here can be any truthy value
-  freeGridBoxes[placeInFreeGridBoxes] = null;
-  checkIfYouWon("X won!", "X");
-  // below checking free Grid boxes
-  if (!someoneWon) {
-    for (let i = 0; i < freeGridBoxes.length; i++) {
-      let temp1 = freeGridBoxes[i] ?? "null inside";
-      if (temp1 === "null inside") {
-        counterCheckingNullInFreeGridBoxes++;
-      } else {
-        break;
-      }
-    }
-    if (counterCheckingNullInFreeGridBoxes !== freeGridBoxes.length) {
-      // below computer move
-      do {
-        randomNumber = Math.floor(Math.random() * freeGridBoxes.length);
-      } while (freeGridBoxes[randomNumber] === null);
-      freeGridBoxes[randomNumber] = null;
-      oOnGrid[randomNumber] = 1; // here can be any truthy value
-      gridBoxes[randomNumber].innerText = "O";
-      gridBoxes[randomNumber].removeEventListener(
-        "click",
-        gridBoxFunctionality
-      );
-      checkIfYouWon("O won!", "O");
-    }
-    console.log(
-      `free grid boxes:${freeGridBoxes}, oPositionOnGrid:${oOnGrid}, xPositionOnGrid:${xOnGrid}`
-    );
-  }
+for (const buttonChangeGridSize of buttonsChangeGridSize) {
+  buttonChangeGridSize.addEventListener(
+    "click",
+    buttonsChangeGridSizeFunctionality
+  );
 }
-function drawGridToPLayDOM(event) {
+buttonPLayAgain.addEventListener("click", function () {
+  for (const buttonChangePlayMode of buttonsChangePlayMode) {
+    buttonChangePlayMode.hidden = false;
+  }
+  buttonPLayAgain.hidden = true;
+  gridArea.innerHTML = "";
+  informationForPlayerArea.textContent = "Choose play mode.";
+  informationMoveArea.textContent = '';
+  someoneWon = false;
+  whoPlay = 'X'
+});
+function buttonsChangeGridSizeFunctionality(event) {
   const numberOrRowsColumns = event.currentTarget.innerText[0]; //first char from clicked button
+  whichGrid = numberOrRowsColumns === "3" ? "3x3" : "5x5";
   let innerHTML = "";
   for (let i = 0; i < numberOrRowsColumns; i++) {
     innerHTML += '\n<div class="grid-row">\n';
@@ -101,13 +70,13 @@ function drawGridToPLayDOM(event) {
   for (let i = 0; i < gridBoxes.length; i++) {
     gridBoxes[i].addEventListener("click", gridBoxFunctionality);
   }
-  informationForPlayerArea.textContent = "Place 3 in a row to win!";
+  informationForPlayerArea.textContent = `Place ${
+    whichGrid === "3x3" ? "3" : "4"
+  } in a row to win!`;
   if (this.innerText[0] === "3") {
     freeGridBoxes.length = 9;
   } else if (this.innerText[0] === "5") {
     freeGridBoxes.length = 25;
-  } else {
-    freeGridBoxes.length = 49;
   }
   for (let i = 0; i < freeGridBoxes.length; i++) {
     freeGridBoxes[i] = i; // here can be every truthy value
@@ -118,18 +87,144 @@ function drawGridToPLayDOM(event) {
   while (oOnGrid.includes(1)) {
     oOnGrid.pop();
   }
+  informationMoveArea.textContent = `${whoPlay} move`;
+}
+function gridBoxFunctionality(event) {
+  const self = this;
+  if (playMode === "computer-player") {
+    playerComputerMove(event, self);
+  }
+  if (playMode === "player-player") {
+    playerPlayerMove(event, self);
+  }
+}
+function playerComputerMove(event, self) {
+  let xPlaceInGrid;
+  let oPlaceInGrid;
+  let counterCheckingNullInFreeGridBoxes = 0;
+  event.target.innerText = "X";
+  for (let i = 0; i < gridBoxes.length; i++) {
+    if (self === gridBoxes[i]) {
+      xPlaceInGrid = i;
+      break;
+    }
+  }
+  xOnGrid[xPlaceInGrid] = 1; // here can be any truthy value
+  checkIfYouWon("X won!", "X");
+  if (!someoneWon) {
+    // in event listener this mean DOM element that handler is attached to
+    self.removeEventListener("click", gridBoxFunctionality);
+    freeGridBoxes[xPlaceInGrid] = null;
+    // below checking free Grid boxes
+    for (let i = 0; i < freeGridBoxes.length; i++) {
+      let temp1 = freeGridBoxes[i] ?? "null inside";
+      if (temp1 === "null inside") {
+        counterCheckingNullInFreeGridBoxes++;
+      } else {
+        break;
+      }
+    }
+    if (counterCheckingNullInFreeGridBoxes !== freeGridBoxes.length) {
+      // below computer move
+      do {
+        oPlaceInGrid = Math.floor(Math.random() * freeGridBoxes.length);
+      } while (freeGridBoxes[oPlaceInGrid] === null);
+      gridBoxes[oPlaceInGrid].innerText = "O";
+      oOnGrid[oPlaceInGrid] = 1; // here can be any truthy value
+      checkIfYouWon("O won!", "O");
+      if (!someoneWon) {
+        freeGridBoxes[oPlaceInGrid] = null;
+        gridBoxes[oPlaceInGrid].removeEventListener(
+          "click",
+          gridBoxFunctionality
+        );
+      }
+    }
+  }
+}
+function playerPlayerMove(event, self) {
+  let placeInGrid;
+  let playerGrid = whoPlay === "X" ? xOnGrid : oOnGrid;
+  event.target.innerText = whoPlay;
+  for (let i = 0; i < gridBoxes.length; i++) {
+    if (self === gridBoxes[i]) {
+      placeInGrid = i;
+      break;
+    }
+  }
+  playerGrid[placeInGrid] = 1; // here can be any truthy value
+  checkIfYouWon(`${whoPlay} won!`, whoPlay);
+  if (!someoneWon) {
+    self.removeEventListener("click", gridBoxFunctionality);
+    whoPlay = whoPlay === "X" ? "O" : "X";
+    informationMoveArea.textContent = `${whoPlay} move`;
+  }
+}
+function checkIfYouWon(whoWonString, XOrOString) {
+  XOrOString = XOrOString === "O" ? oOnGrid : xOnGrid;
+  let didYOuWOn;
+  if (whichGrid === "3x3") {
+    //whichGrid gets value inside buttonsChangeGridSizeFunctionality function
+    didYOuWOn =
+      (XOrOString[0] && XOrOString[1] && XOrOString[2]) ||
+      (XOrOString[3] && XOrOString[4] && XOrOString[5]) ||
+      (XOrOString[6] && XOrOString[7] && XOrOString[8]) ||
+      (XOrOString[0] && XOrOString[3] && XOrOString[6]) ||
+      (XOrOString[1] && XOrOString[4] && XOrOString[7]) ||
+      (XOrOString[2] && XOrOString[5] && XOrOString[8]) ||
+      (XOrOString[0] && XOrOString[4] && XOrOString[8]) ||
+      (XOrOString[2] && XOrOString[4] && XOrOString[6]) ||
+      null;
+  }
+  if (whichGrid === "5x5") {
+    didYOuWOn =
+      (XOrOString[0] && XOrOString[1] && XOrOString[2] && XOrOString[3]) ||
+      (XOrOString[1] && XOrOString[2] && XOrOString[3] && XOrOString[4]) ||
+      (XOrOString[5] && XOrOString[6] && XOrOString[7] && XOrOString[8]) ||
+      (XOrOString[6] && XOrOString[7] && XOrOString[8] && XOrOString[9]) ||
+      (XOrOString[10] && XOrOString[11] && XOrOString[12] && XOrOString[13]) ||
+      (XOrOString[11] && XOrOString[12] && XOrOString[13] && XOrOString[14]) ||
+      (XOrOString[15] && XOrOString[16] && XOrOString[17] && XOrOString[18]) ||
+      (XOrOString[16] && XOrOString[17] && XOrOString[18] && XOrOString[19]) ||
+      (XOrOString[20] && XOrOString[21] && XOrOString[22] && XOrOString[23]) ||
+      (XOrOString[21] && XOrOString[22] && XOrOString[23] && XOrOString[24]) || // end of horizontally
+      (XOrOString[0] && XOrOString[5] && XOrOString[10] && XOrOString[15]) ||
+      (XOrOString[5] && XOrOString[10] && XOrOString[15] && XOrOString[20]) ||
+      (XOrOString[1] && XOrOString[6] && XOrOString[11] && XOrOString[16]) ||
+      (XOrOString[6] && XOrOString[11] && XOrOString[16] && XOrOString[21]) ||
+      (XOrOString[2] && XOrOString[7] && XOrOString[12] && XOrOString[17]) ||
+      (XOrOString[7] && XOrOString[12] && XOrOString[17] && XOrOString[22]) ||
+      (XOrOString[3] && XOrOString[8] && XOrOString[13] && XOrOString[18]) ||
+      (XOrOString[8] && XOrOString[13] && XOrOString[18] && XOrOString[23]) ||
+      (XOrOString[4] && XOrOString[9] && XOrOString[14] && XOrOString[19]) ||
+      (XOrOString[9] && XOrOString[14] && XOrOString[19] && XOrOString[24]) || // end of vertically
+      (XOrOString[5] && XOrOString[11] && XOrOString[17] && XOrOString[23]) ||
+      (XOrOString[0] && XOrOString[6] && XOrOString[12] && XOrOString[18]) ||
+      (XOrOString[6] && XOrOString[12] && XOrOString[18] && XOrOString[24]) ||
+      (XOrOString[1] && XOrOString[7] && XOrOString[13] && XOrOString[19]) || //
+      (XOrOString[9] && XOrOString[13] && XOrOString[17] && XOrOString[21]) ||
+      (XOrOString[4] && XOrOString[8] && XOrOString[12] && XOrOString[16]) ||
+      (XOrOString[8] && XOrOString[12] && XOrOString[16] && XOrOString[20]) ||
+      (XOrOString[3] && XOrOString[7] && XOrOString[11] && XOrOString[15]) ||
+      null;
+  }
+  if (didYOuWOn) {
+    informationForPlayerArea.textContent = whoWonString;
+    for (let i = 0; i < gridBoxes.length; i++) {
+      gridBoxes[i].removeEventListener("click", gridBoxFunctionality);
+    }
+    someoneWon = true;
+    informationMoveArea.textContent = '';
+  }
 }
 
-for (let buttonChangeGridSize of buttonsChangeGridSize) {
-  buttonChangeGridSize.addEventListener("click", drawGridToPLayDOM);
-}
-buttonPLayAgain.addEventListener("click", function () {
-  for (let buttonChangeGridSize of buttonsChangeGridSize) {
-    buttonChangeGridSize.hidden = false;
-  }
-  buttonPLayAgain.hidden = true;
-  gridArea.innerHTML = "";
-  informationForPlayerArea.textContent = "Choose grid to play.";
-  someoneWon = false;
-  console.log(freeGridBoxes);
-});
+
+
+
+
+
+
+
+
+
+

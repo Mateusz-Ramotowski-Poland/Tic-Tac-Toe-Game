@@ -1,14 +1,28 @@
-/* think about system how do you want to create class names: where they are in html code, what they do... */
 body {
   text-align: center;
+  background-color: #80007d;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+button{
+  font-family: 'Montserrat', sans-serif;
+  height:70px;
+  width:145px;
+  border-radius: 10px;
+  font-size:20px
+}
+button:hover{
+  color:blue;
+  font-size: 25px;
 }
 footer {
   text-align: left;
+  margin-top: 40px;
 }
 .grid-box {
   align-items: center;
-  background-color: blue;  /* think which color choose */
-  color: white; /* think which color choose */
+  background-color: blue;  
+  color: white; 
   display: flex;
   font-size: 40px;
   height: 50px;
@@ -16,8 +30,17 @@ footer {
   margin-right: 3px;
   width: 50px; 
 }
+.grid-box:hover {
+  background-color: rgb(0, 183, 255); 
+}
 .grid-row {
   display: flex;
   justify-content: center;
   margin-bottom: 3px;
+}
+h1{
+  font-size: 40px;;
+}
+.information-for-player{
+  font-size: 25px;
 }
