@@ -9,7 +9,6 @@ It's more complex version of Tic Tac Toe game. Live demo: https://mateusz-ramoto
 * [Screenshots](#screenshots)
 * [Project Status](#project-status)
 * [Acknowledgements](#acknowledgements)
-* [Description of Code. Help for the author.](#Description-of-Code.-Help-for-the-author.)
 * [Contact](#contact)
 
 ## General Information
