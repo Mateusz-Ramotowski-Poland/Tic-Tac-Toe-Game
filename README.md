@@ -11,7 +11,7 @@ It's my own project. I made it from scratch. It's more complex version of Tic Ta
 * [Contact](#contact)
 
 ## General Information
-This project is a browser game.  I created it to practice my programming skills. In this project, I focused on learning JS and chrome developer tools. It's working on laptop/computer screen on Google Chrome browser. 
+This project is a browser game.  I created it to practice my programming skills. In this project, I focused on learning JS and chrome developer tools. It's working on all resolutions and browsers. 
 
 ## Technologies Used
 Project is created with:
@@ -31,7 +31,7 @@ I was using Chrome developer tools for testing my application.
 ![2](https://user-images.githubusercontent.com/83215700/160609421-12fe1e92-96a9-439d-ae52-f91a1a7b877b.PNG)
 
 ## Project Status
-Pre-completed project. I have to test it on other browsers and on mobiles.
+Finished project.
 
 ## Acknowledgements
 Thanks https://pl.crazygames.com/gra/tic-tac-toe for idea of more complex Tic TAc Toe version.
