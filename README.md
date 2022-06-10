@@ -5,7 +5,6 @@ It's my own project. I made it from scratch. It's more complex version of Tic Ta
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Screenshots](#screenshots)
 * [Project Status](#project-status)
 * [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
@@ -24,11 +23,6 @@ I was using Chrome developer tools for testing my application.
 - You can choose if You want to play with computer or other player.
 - You can play on grid 3x3 and 5x5. 
 - Game gives text information for player.
-
-## Screenshots
-![4](https://user-images.githubusercontent.com/83215700/160609399-e5a7f919-d5bf-4386-a127-83c8e0aa156a.PNG)
-![3](https://user-images.githubusercontent.com/83215700/160609409-8251cafe-1046-41d5-ac7f-991d1ff5276c.PNG)
-![2](https://user-images.githubusercontent.com/83215700/160609421-12fe1e92-96a9-439d-ae52-f91a1a7b877b.PNG)
 
 ## Project Status
 Finished project.
